@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ChatApp3</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yeni_oda_olustur">Yeni oda olustur</string>
+    <string name="olan_bir_odaya_gir">Olan bir odaya gir</string>
+    <string name="oda_ismi">Oda ismi:</string>
+    <string name="oda_ismini_giriniz">Oda ismini giriniz...</string>
+    <string name="geri">geri</string>
+    <string name="gir">gir</string>
+    <string name="olustur">olustur</string>
+    <string name="istege_bagli_oda_sifresi">Istege bagli oda sifresi...</string>
+    <string name="sifre">sifre:</string>
+    <string name="oda_sifresi">oda sifresi:</string>
+    <string name="oda_sifresini_giriniz">oda sifresini giriniz...</string>
+</resources>
