@@ -1,6 +1,8 @@
 # ChatApp
  Android Studio'da java ile chat uygulaması geliştirilmesi.
  Projede Firebase kullanıldı.
+ 
+ ***---Bitmemiş Proje---***
  **********************************************************
  
 ![Ekran görüntüsü 2021-10-02 180917](https://user-images.githubusercontent.com/57914793/135722660-abda169f-2750-4566-85cf-93b2312838cb.png)
