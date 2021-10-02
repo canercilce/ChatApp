@@ -8,6 +8,12 @@
         app:showAsAction="never"
         app:actionViewClass="android.widget.ImageButton"></item>
 
+    <item android:id="@+id/odaBilgisi"
+        android:title="Oda Bilgileri"
+        android:icon="@drawable/add_icon"
+        app:showAsAction="never"
+        app:actionViewClass="android.widget.ImageButton"></item>
+
     <item android:id="@+id/logout"
         android:title="cikis yap"
         android:icon="@drawable/add_icon"

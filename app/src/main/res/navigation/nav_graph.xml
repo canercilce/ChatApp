@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_chatFragment_to_newRoomFragment"
             app:destination="@id/newRoomFragment" />
+        <action
+            android:id="@+id/action_chatFragment_to_roomInfoFragment"
+            app:destination="@id/roomInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -103,6 +106,15 @@
             app:destination="@id/enterRoomIdFragment" />
         <action
             android:id="@+id/action_enterRoomPasswordFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/roomInfoFragment"
+        android:name="com.example.chatapp3.RoomInfoFragment"
+        android:label="fragment_room_info"
+        tools:layout="@layout/fragment_room_info" >
+        <action
+            android:id="@+id/action_roomInfoFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
     </fragment>
 </navigation>

@@ -54,9 +54,8 @@ public class EnterRoomPasswordFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String password = binding.editTextOdaSifresi.getText().toString();
-                Object room = EnterRoomIdFragment.getRoomByRoomName(EnterRoomIdFragment.roomName);
-                System.out.println(room);
-                HashMap<String,String> hashMap_room = (HashMap<String,String>) room;
+                HashMap<String,Object> hashMap_room = EnterRoomIdFragment.getHashMapByRoomName(EnterRoomIdFragment.roomName);
+
                 if(hashMap_room.get("odaSifresi").equals(password)){
                     NavDirections action = EnterRoomPasswordFragmentDirections.actionEnterRoomPasswordFragmentToChatFragment();
                     Navigation.findNavController(view).navigate(action);

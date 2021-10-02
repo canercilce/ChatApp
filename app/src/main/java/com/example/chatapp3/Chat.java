@@ -1,12 +1,19 @@
 package com.example.chatapp3;
 
+import android.widget.ImageView;
+
 public class Chat {
-    String text;
+    String message;
     String username;
     String mail;
-    Chat(String text,String username, String mail){
-        this.text= text;
+    String messageType;
+
+    Chat(String message,String username, String mail, String messageType){
+        this.message= message;
         this.username= username;
         this.mail = mail;
+        this.messageType = messageType;
     }
+
+
 }

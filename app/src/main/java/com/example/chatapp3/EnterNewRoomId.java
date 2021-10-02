@@ -37,7 +37,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
@@ -49,9 +52,12 @@ public class EnterNewRoomId extends Fragment {
     static String odaIsmi;
     static String odaSifresi;
     static Object odaKurucusu;
+    static ArrayList<String> odadakiler;
     static boolean cameFromEnterNewRoomId = false;
     static ArrayList<Room> value = new ArrayList<Room>();
     static boolean izin=true;
+    private ArrayList<String> odaIsimleri = new ArrayList<String>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,13 @@ public class EnterNewRoomId extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.my_menu,menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.odaBilgisi);
+        item.setVisible(false);
     }
 
     @Override
@@ -123,6 +136,9 @@ public class EnterNewRoomId extends Fragment {
                 odaIsmi = binding.editText2.getText().toString();
                 odaSifresi = binding.optionalPassword.getText().toString();
                 odaKurucusu = getUserbyEmail(mAuth.getCurrentUser().getEmail());
+                odadakiler = new ArrayList<String>();
+                odadakiler.add("*");
+
                 if(odaIsmi.isEmpty()){
                     Toast.makeText(requireContext(),"oda ismi bos olmamalidir.",Toast.LENGTH_SHORT).show();
                     return;
@@ -130,15 +146,30 @@ public class EnterNewRoomId extends Fragment {
                 if(value==null){
                     value = new ArrayList<Room>();
                 }
-                if(value.contains(odaIsmi)){
+                for (Object o:value) {
+                    String odaName = ((HashMap<String, String>) o).get("odaIsmi");
+                    odaIsimleri.add(odaName);
+                }
+                if(odaIsimleri.contains(odaIsmi)){
                     Toast.makeText(requireContext(),"Bu isimde baska bir oda var.",Toast.LENGTH_SHORT).show();
                     binding.editText2.setText("");
                     return;
                 }
                 HashMap<String,Object> hashMap = new HashMap<String, Object>();
-                Room room = new Room(odaKurucusu,odaIsmi,odaSifresi);
-                value.add(room);
 
+                SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                Date date = new Date(System.currentTimeMillis());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                String formatDateTime = formatter.format(calendar.getTime());
+
+                Room room = new Room(odaKurucusu,odaIsmi,odaSifresi, formatDateTime, odadakiler);
+                value.add(room);
+                System.out.println(room.getOdadakiler());
+                /*RoomInfoFragment.binding.roomName2.setText(odaIsmi);
+                RoomInfoFragment.binding.roomPassword2.setText(odaSifresi);
+                String usernameOfOdaKurucusu = ((HashMap<String,String>) odaKurucusu).get("username");
+                RoomInfoFragment.binding.odaKurucusu2.setText(usernameOfOdaKurucusu);*/
                 LoginFragment.myRef.setValue(value);
                 if(izin){
 
@@ -161,7 +192,7 @@ public class EnterNewRoomId extends Fragment {
         });
     }
 
-    public Object getUserbyEmail(String email){
+    public static Object getUserbyEmail(String email){
         for (Object u:SignUpFragment.value2) {
             String mail = ((HashMap<String, String>) u).get("email");
             if(email.equals(mail)){

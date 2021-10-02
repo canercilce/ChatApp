@@ -45,7 +45,7 @@ public class NewRoomFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 EnterNewRoomId.value = (ArrayList<Room>) snapshot.getValue();
-                System.out.println(EnterNewRoomId.value);
+
             }
 
             @Override
@@ -58,7 +58,7 @@ public class NewRoomFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 SignUpFragment.value2 = (ArrayList<User>) snapshot.getValue();
-                System.out.println(SignUpFragment.value2);
+
             }
 
             @Override
@@ -72,6 +72,13 @@ public class NewRoomFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.my_menu,menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.odaBilgisi);
+        item.setVisible(false);
     }
 
     @Override

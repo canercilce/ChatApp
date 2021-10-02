@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp3">
-        <activity android:name=".pop_activity" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".pop_activity_odayiSil"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".pop_activity"
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -52,6 +52,13 @@ public class EnterRoomIdFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.odaBilgisi);
+        item.setVisible(false);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.logout){
             Intent intent = new Intent(getActivity(),pop_activity.class);
@@ -91,7 +98,7 @@ public class EnterRoomIdFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 roomName = binding.editText.getText().toString();
-                Object room = getRoomByRoomName(roomName);
+                HashMap<String,Object> room = getHashMapByRoomName(roomName);
                 System.out.println(room);
                 if((EnterNewRoomId.value).contains(room)){
                     HashMap<String,Object> hashMap = new HashMap<String, Object>();
@@ -99,7 +106,7 @@ public class EnterRoomIdFragment extends Fragment {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             cameFromEnterRoomIdFragment = true;
-                            HashMap<String,String> hashMap_room = (HashMap<String,String>) room;
+                            HashMap<String,Object> hashMap_room = (HashMap<String,Object>) room;
                             if(!(hashMap_room.get("odaSifresi").equals(""))){
                                 NavDirections action = EnterRoomIdFragmentDirections.actionEnterRoomIdFragmentToEnterRoomPasswordFragment();
                                 Navigation.findNavController(view).navigate(action);
@@ -126,11 +133,28 @@ public class EnterRoomIdFragment extends Fragment {
 
     }
 
-    public static Object getRoomByRoomName(String roomName){
+    public static Room getRoomByRoomName(String roomName){
+        String roomname ="";
         for (Object room: EnterNewRoomId.value) {
-            String roomname = ((HashMap<String, String>) room).get("odaIsmi");
-            if(roomName.equals(roomname)){
-                return room;
+            if(room.getClass().toString().equals("class com.example.chatapp3.Room")){
+                roomname = ((Room) room).getOdaIsmi();
+                if(roomName.equals(roomname)){
+                    return (Room) room;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static HashMap<String,Object> getHashMapByRoomName(String roomName){
+        String roomname ="";
+
+        for(Object room: EnterNewRoomId.value) {
+            if(room.getClass().toString().equals("class java.util.HashMap")){
+                roomname = (String) ((HashMap<String, Object>) room).get("odaIsmi");
+                if (roomName.equals(roomname)) {
+                    return (HashMap<String, Object>) room;
+                }
             }
         }
         return null;
